@@ -1,6 +1,7 @@
 package racingcar.service;
 
 import racingcar.domain.Car;
+import racingcar.domain.Cars;
 import racingcar.util.RacingConfig;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,13 +12,13 @@ import static racingcar.message.ErrorMessage.*;
 
 public class RacingService {
     //컨트롤러에서 호출되며, 도메인 객체와 상호작용
-    public List<String> validateAndSplitNames(String input) {
-        List<String> cars = Arrays.stream(input.split(RacingConfig.COMMA_DELIMITER))
+    public Cars validateAndSplitNames(String input) {
+        List<String> names = Arrays.stream(input.split(RacingConfig.COMMA_DELIMITER))
                 .map(String::trim)
                 .toList();
-        checkNameLength(cars);
-        checkDuplicatedName(cars);
-        return cars;
+        checkNameLength(names);
+        checkDuplicatedName(names);
+        return new Cars(names);
     }
 
     public int validateCount(String input) {
@@ -46,17 +47,18 @@ public class RacingService {
             throw new IllegalArgumentException(INVALID_DUPLICATE.getMessage());
         }
     }
-    public void moveForward(List<Car> carsInfo){
-        for(Car car:carsInfo){
+    public List<Car> moveForward(List<Car> carsInfo){
+        for(Car car : carsInfo){
             if(RacingConfig.getRandomNumber() >= RacingConfig.MOVE){
                 car.setDistance();
             }
         }
+        return carsInfo;
     }
     public List<Integer> getWinningDistance(List<Car> carsInfo){
         int maxDistance = -1;
         int winner = 0;
-        for(Car car:carsInfo){
+        for(Car car : carsInfo){
             if(car.getDistance() > maxDistance){
                 maxDistance = car.getDistance();
                 winner = 1;

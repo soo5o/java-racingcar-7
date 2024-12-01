@@ -17,11 +17,11 @@ public class RacingController {
         racingService = new RacingService();
     }
     public void run(){
-        Cars cars = new Cars(getCarsName());
+        Cars cars = getCarsName();
         int count = getGameCount();
         getResult(count, cars.getCarsInfo());
     }
-    private List<String> getCarsName(){
+    private Cars getCarsName(){
         while(true){
             try{
                 outputView.printStart();
@@ -44,8 +44,7 @@ public class RacingController {
     private void getResult(int count, List<Car> carsInfo){
         outputView.printResult();
         while(count > 0){
-            racingService.moveForward(carsInfo);
-            outputView.printGameProcess(carsInfo);
+            outputView.printGameProcess(racingService.moveForward(carsInfo));
             count--;
         }
         outputView.printWinner(racingService.getWinningDistance(carsInfo), carsInfo);
