@@ -2,8 +2,7 @@ package racingcar.domain;
 
 public class Car {
     private final String name;
-    private int distance; //Static 형 이어야지 되는지?
-    //아니어도 될 듯
+    private int distance;
     private String distanceLine;
 
 

@@ -17,8 +17,6 @@ public class RacingController {
         racingService = new RacingService();
     }
     public void run(){
-        //input 에 대한 값 검증은 기존처럼 해야될지
-        //아니면 service 에서 하는 것 일지
         Cars cars = new Cars(getCarsName());
         int count = getGameCount();
         getResult(count, cars.getCarsInfo());
@@ -27,7 +25,7 @@ public class RacingController {
         while(true){
             try{
                 outputView.printStart();
-                return inputView.inputName();
+                return racingService.validateAndSplitNames(inputView.inputValue());
             }catch (IllegalArgumentException e){
                 outputView.printError(e.getMessage());
             }
@@ -37,7 +35,7 @@ public class RacingController {
         while(true){
             try{
                 outputView.printCount();
-                return inputView.inputCount();
+                return racingService.validateCount(inputView.inputValue());
             }catch (IllegalArgumentException e){
                 outputView.printError(e.getMessage());
             }

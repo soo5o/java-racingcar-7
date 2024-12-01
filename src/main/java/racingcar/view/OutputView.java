@@ -1,11 +1,11 @@
 package racingcar.view;
 
 import racingcar.domain.Car;
+import racingcar.util.RacingConfig;
 import java.util.List;
 import static racingcar.message.OutputMessage.*;
 
 public class OutputView {
-    private static final String COMMA_DELIMITER = ", ";
 
     public void printStart(){
         System.out.println(START.getMessage());
@@ -35,7 +35,7 @@ public class OutputView {
     }
     private void printDelimiter(int winnerCount){
         if(winnerCount > 1){
-            System.out.print(COMMA_DELIMITER);
+            System.out.print(RacingConfig.COMMA_DELIMITER);
         }
     }
     public void printError(String e){
